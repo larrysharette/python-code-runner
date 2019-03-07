@@ -1,8 +1,7 @@
-from flask import Flask, jsonify
-from flask import request
-from subprocess import Popen, PIPE, check_output
-import shutil
+from flask import Flask, jsonify, request
+from subprocess import Popen, PIPE
 import sys
+import os
 
 app = Flask(__name__)
 
@@ -13,5 +12,5 @@ def index():
     outfile.write(content['content'])
   p = Popen([sys.executable, content['filename']], stdout=PIPE, stderr=PIPE, universal_newlines=True)
   output, err = p.communicate()
-  print(output)
+  os.remove(content['filename'])
   return jsonify({"output": output, "err": err})
