@@ -13,4 +13,5 @@ def index():
     outfile.write(content['content'])
   p = Popen([sys.executable, content['filename']], stdout=PIPE, stderr=PIPE)
   output, err = p.communicate()
+  print(output)
   return jsonify({"output": output, "err": err})
