@@ -11,7 +11,7 @@ def index():
   content = request.get_json()
   with open(content['filename'], 'w') as outfile:
     outfile.write(content['content'])
-  p = Popen([sys.executable, content['filename']], stdout=PIPE, stderr=PIPE)
+  p = Popen([sys.executable, content['filename']], stdout=PIPE, stderr=PIPE, universal_newlines=True)
   output, err = p.communicate()
   print(output)
   return jsonify({"output": output, "err": err})
